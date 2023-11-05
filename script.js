@@ -104,6 +104,8 @@ let dropCounter = 0
 let dropInterval = 1000
 let lastTime = 0
 
+let gameStarted = false
+
 function updateTable(time = 0) {
     const deltaTime = time - lastTime
     lastTime = time
@@ -121,7 +123,6 @@ function updateTable(time = 0) {
     drawTable()
     window.requestAnimationFrame(updateTable)
 }
-updateTable()
 
 function drawTable() {
     table.fillStyle = "black"
@@ -167,8 +168,6 @@ function merge() {
         })
     })
     nextPiece()
-    pieces[piece].position.x = 5
-    pieces[piece].position.y = 0
     removeLine()
 }
 
@@ -188,6 +187,15 @@ function removeLine() {
 
 function nextPiece() {
     piece = Math.floor(Math.random() * pieces.length)
+    pieces[piece].position.x = 5
+    pieces[piece].position.y = 0
+    if(checkCollision()) {
+        alert("Game Over")
+        gameStarted = false
+        board.forEach((row, y) => {
+            row.fill(0)
+        })
+    }
 }
 
 function rotatePiece() {
@@ -234,5 +242,11 @@ document.addEventListener("keydown", event => {
         rotatePiece()
         if (checkCollision()) {
         }
+    }
+})
+document.addEventListener("click", event => {
+    if(!gameStarted) {
+        gameStarted = true
+        updateTable()
     }
 })
