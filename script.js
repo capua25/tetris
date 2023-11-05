@@ -211,24 +211,24 @@ function rotatePiece() {
 }
 
 document.addEventListener("keydown", event => {
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft' || event.key === 'a') {
         pieces[piece].position.x--
         if (checkCollision()) {
             pieces[piece].position.x++
         }
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' || event.key === 'd') {
         pieces[piece].position.x++
         if (checkCollision()) {
             pieces[piece].position.x--
         }
-    } else if (event.key === 'ArrowDown') {
+    } else if (event.key === 'ArrowDown' || event.key === 's') {
         pieces[piece].position.y++
         if (checkCollision()) {
             pieces[piece].position.y--
             merge()
         }
     }
-    if (event.key === 'ArrowUp') {
+    if (event.key === ' ') {
         for(let i=0; i<30; i++) {
             pieces[piece].position.y++
             if (checkCollision()) {
@@ -238,7 +238,7 @@ document.addEventListener("keydown", event => {
             }
         }
     }
-    if (event.key === ' ') {
+    if (event.key === 'ArrowUp'  || event.key === 'w') {
         rotatePiece()
         if (checkCollision()) {
         }
